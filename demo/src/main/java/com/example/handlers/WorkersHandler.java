@@ -26,6 +26,7 @@ public class WorkersHandler implements HttpHandler {
                     }
                     """;
 
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
             exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
 
             byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
