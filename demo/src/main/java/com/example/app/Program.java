@@ -14,10 +14,11 @@ public class Program {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         System.out.println("BEM VINDO AO SISTEMA DE CADASTRO DE FREELAS");
-        
+        System.out.println("================================================");
+
         System.out.print("Nome do colaborador: ");
         String name = sc.nextLine();
-        
+
         System.out.print("E-mail do colaborador: ");
         String email = sc.nextLine();
 
@@ -30,7 +31,7 @@ public class Program {
 
         Worker worker = new Worker(name, email, department);
 
-        for(Integer i = 0; i < contractsQuantity; i++) {
+        for (Integer i = 0; i < contractsQuantity; i++) {
             Integer contador = i + 1;
             System.out.println("Insira os dados do " + contador + "º " + "contrato");
 
@@ -49,16 +50,26 @@ public class Program {
             worker.adicionarContrato(contract);
         }
 
-        sc.close();
-
         System.out.println("================================================");
         System.out.println("Colaborador e contratos cadastrados com sucesso.");
         System.out.println("================================================");
 
         System.out.println(worker);
+
         System.out.println("================================================");
-        worker.exibirContratos();
-        System.out.println("================================================");
-        
+        System.out.print("Deseja calcular os valores do contrato? (S/N): ");
+        char choice = sc.next().charAt(0);
+        sc.nextLine();
+
+
+        if (choice == 'S') {
+            System.out.print("Data do contrato: ");
+            LocalDate incomeDate = LocalDate.parse(sc.nextLine(), formatter);
+
+            System.out.println("================================================");
+
+            worker.exibirContratos(incomeDate);
+        }
+        sc.close();
     }
 }

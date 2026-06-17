@@ -1,6 +1,8 @@
 package com.example.entities;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -11,9 +13,10 @@ public class Worker {
 
     private ArrayList<Contract> contracts = new ArrayList<>();
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy");
+
     Locale localeBR = Locale.forLanguageTag("pt-BR");
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeBR);
-
 
     public Worker(String name, String email, Department department) {
         this.name = name;
@@ -40,18 +43,24 @@ public class Worker {
     @Override
     public String toString() {
         return "Nome: " + name + "\n" +
-        "Email: " + email + "\n" +
-        "Departamento: " + getDepartment();
+                "Email: " + email + "\n" +
+                "Departamento: " + getDepartment();
     }
 
-    public void exibirContratos() {
+    public void exibirContratos(LocalDate incomeDate) {
         for (Contract c : contracts) {
-            System.out.println("Data do contrato: " + c.getDate());
-            System.out.println("Quantidade de horas: " + c.getContractHours());
-            System.out.println("Valor por hora: " + c.getValuePerHour());
-            System.out.println("Valor total do contrato: " + currencyFormatter.format(c.calcularValores()));
+            if ((incomeDate.getDayOfMonth() == c.getDate().getDayOfMonth())
+                    && (incomeDate.getMonth() == c.getDate().getMonth())) {
+                System.out.println("Data do contrato: " + c.getDate().format(formatter));
+                System.out.println("Quantidade de horas: " + c.getContractHours());
+                System.out.println("Valor por hora: " + c.getValuePerHour());
+                System.out.println("Valor total do contrato: " + currencyFormatter.format(c.calcularValores()));
+                System.out.println("================================================");
+            } else {
+                System.out.println("Data Incorreta");
+            }
+
         }
     }
-
 
 }

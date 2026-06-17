@@ -26,6 +26,6 @@ public class Contract {
     }
 
     public Double calcularValores() {
-        return valuePerHour *  contractHours;
+        return valuePerHour * contractHours;
     }
 }
