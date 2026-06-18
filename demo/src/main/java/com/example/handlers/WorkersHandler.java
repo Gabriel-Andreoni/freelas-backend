@@ -5,10 +5,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
+import com.example.Records.WorkerRecord;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+
+
 public class WorkersHandler implements HttpHandler {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -18,6 +24,8 @@ public class WorkersHandler implements HttpHandler {
             String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
             System.out.println("JSON recebido: " + body);
+
+            WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
 
             String jsonResponse = """
                     {
