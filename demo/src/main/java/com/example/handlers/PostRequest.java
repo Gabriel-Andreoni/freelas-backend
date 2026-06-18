@@ -21,7 +21,7 @@ public class PostRequest implements Handle {
 
         System.out.println("JSON recebido: " + body);
 
-        WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
+        //WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
 
         String jsonResponse = """
                 {
@@ -29,9 +29,6 @@ public class PostRequest implements Handle {
                     "mensagem": "Colaborador cadastrado com sucesso!"
                 }
                 """;
-
-        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
 
         byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
         exchange.sendResponseHeaders(201, responseBytes.length);
