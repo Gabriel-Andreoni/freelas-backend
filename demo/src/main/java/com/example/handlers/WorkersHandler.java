@@ -9,11 +9,13 @@ import com.sun.net.httpserver.HttpHandler;
 
 public class WorkersHandler implements HttpHandler {
     private final PostRequest postRequest = new PostRequest();
+    private final GetRequest getRequest = new GetRequest();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         switch (exchange.getRequestMethod().toUpperCase()) {
             case "POST" -> postRequest.handleRequest(exchange);
+            case "GET" -> getRequest.handleRequest(exchange);
         }
     }
 }
