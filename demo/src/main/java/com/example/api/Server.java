@@ -11,7 +11,7 @@ public class Server {
         // 1. Cria o servidor na porta 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        // 2. Associa o endpoint "/produtos" ao nosso Handler
+        // 2. Associa o endpoint "/workers" ao nosso Handler
         server.createContext("/workers", new WorkersHandler());
 
         // 3. Inicializa o servidor
