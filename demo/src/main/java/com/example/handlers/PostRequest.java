@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 import com.example.Records.WorkerRecord;
-import com.example.entities.Worker;
 import com.example.entities.WorkersList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
@@ -15,6 +14,7 @@ public class PostRequest implements Handle {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Override
     public void handleRequest(HttpExchange exchange) throws IOException {
         
         InputStream is = exchange.getRequestBody();
@@ -23,10 +23,6 @@ public class PostRequest implements Handle {
 
         WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
         WorkersList.addWorker(worker);
-        
-        System.out.println(worker.name());
-        System.out.println(worker.email());
-        System.out.println(worker.department().getName());
 
         String jsonResponse = """
                 {

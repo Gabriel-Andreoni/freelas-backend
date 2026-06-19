@@ -11,4 +11,8 @@ public class WorkersList {
         workersList.add(worker);
     }
 
+    public static ArrayList<WorkerRecord> listWorkers() {
+        return workersList;
+    }
+
 }
