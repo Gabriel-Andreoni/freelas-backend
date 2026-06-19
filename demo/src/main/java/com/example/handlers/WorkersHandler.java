@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpHandler;
 public class WorkersHandler implements HttpHandler {
     private final PostRequest postRequest = new PostRequest();
     private final GetRequest getRequest = new GetRequest();
+    private final Options options = new Options();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -20,10 +21,7 @@ public class WorkersHandler implements HttpHandler {
         switch (exchange.getRequestMethod().toUpperCase()) {
             case "POST" -> postRequest.handleRequest(exchange);
             case "GET" -> getRequest.handleRequest(exchange);
-            case "OPTIONS" -> {
-                exchange.sendResponseHeaders(204, -1);
-                exchange.close();
-            }
+            case "OPTIONS" -> options.handleRequest(exchange);
         }
     }
 }
