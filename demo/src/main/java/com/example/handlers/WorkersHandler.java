@@ -23,5 +23,7 @@ public class WorkersHandler implements HttpHandler {
             case "GET" -> getRequest.handleRequest(exchange);
             case "OPTIONS" -> options.handleRequest(exchange);
         }
+
+        
     }
 }
