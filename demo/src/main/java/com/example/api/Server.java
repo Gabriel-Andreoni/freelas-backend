@@ -3,6 +3,7 @@ package com.example.api;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import com.example.handlers.ContractsHandler;
 import com.example.handlers.WorkersHandler;
 import com.sun.net.httpserver.HttpServer;
 
@@ -13,7 +14,8 @@ public class Server {
 
         // 2. Associa o endpoint "/workers" ao nosso Handler
         server.createContext("/workers", new WorkersHandler());
-
+        server.createContext("/contracts", new ContractsHandler());
+        
         // 3. Inicializa o servidor
         server.setExecutor(null); // Usa o executor padrão
         System.out.println("Servidor rodando puro na porta 8080...");
