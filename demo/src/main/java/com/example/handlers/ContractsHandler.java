@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpHandler;
 public class ContractsHandler implements HttpHandler {
     ContractsPostRequest contractsPostRequest = new ContractsPostRequest();
     ContractsGetRequest contractsGetRequest = new ContractsGetRequest();
+    Options options = new Options();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -21,6 +22,7 @@ public class ContractsHandler implements HttpHandler {
             case "POST /contracts" -> contractsPostRequest.handleRequest(exchange);
             case "GET /contracts" -> contractsGetRequest.handleRequest(exchange);
             case "POST /contracts/getIncome" -> contractsGetRequest.handleRequest(exchange);
+            case "OPTIONS /contracts" -> options.handleRequest(exchange);
         }
     }
 }
