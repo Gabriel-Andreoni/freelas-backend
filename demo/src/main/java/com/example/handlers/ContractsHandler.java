@@ -20,6 +20,7 @@ public class ContractsHandler implements HttpHandler {
         switch(route) {
             case "POST /contracts" -> contractsPostRequest.handleRequest(exchange);
             case "GET /contracts" -> contractsGetRequest.handleRequest(exchange);
+            case "POST /contracts/getIncome" -> contractsGetRequest.handleRequest(exchange);
         }
     }
 }
