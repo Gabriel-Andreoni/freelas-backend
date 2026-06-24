@@ -6,7 +6,7 @@ import com.example.Records.ContractRecord;
 public class ContractsList {
     private static ArrayList<ContractRecord> contractsList = new ArrayList<>();
 
-    public static void addWorker(ContractRecord contract) {
+    public static void addContract(ContractRecord contract) {
         contractsList.add(contract);
     }
 
