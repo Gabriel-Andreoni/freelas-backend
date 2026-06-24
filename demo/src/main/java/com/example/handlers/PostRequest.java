@@ -8,11 +8,15 @@ import java.nio.charset.StandardCharsets;
 import com.example.Records.WorkerRecord;
 import com.example.entities.WorkersList;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sun.net.httpserver.HttpExchange;
 
 public class PostRequest implements Handle {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+    .registerModule(new JavaTimeModule())
+    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     @Override
     public void handleRequest(HttpExchange exchange) throws IOException {

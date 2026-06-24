@@ -13,6 +13,8 @@ public class Contract {
         this.valuePerHour = valuePerHour;
     }
 
+    public Contract() {}
+
     public LocalDate getDate() {
         return date;
     }
