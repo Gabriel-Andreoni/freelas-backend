@@ -10,7 +10,7 @@ public class ContractsList {
         contractsList.add(contract);
     }
 
-    public static ArrayList<ContractRecord> listWorkers() {
+    public static ArrayList<ContractRecord> listContracts() {
         return contractsList;
     }
 }
