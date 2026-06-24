@@ -6,10 +6,14 @@ import java.nio.charset.StandardCharsets;
 
 import com.example.entities.ContractsList;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sun.net.httpserver.HttpExchange;
 
 public class ContractsGetRequest implements Handle {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     @Override
     public void handleRequest(HttpExchange exchange) throws IOException {
@@ -19,7 +23,7 @@ public class ContractsGetRequest implements Handle {
 
         byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
         exchange.sendResponseHeaders(200, responseBytes.length);
-        
+
         OutputStream os = exchange.getResponseBody();
         os.write(responseBytes);
         os.close();

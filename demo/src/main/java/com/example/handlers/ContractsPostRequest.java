@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 import com.example.Records.ContractRecord;
+import com.example.entities.ContractsList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -24,11 +25,7 @@ public class ContractsPostRequest implements Handle {
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
         
         ContractRecord contract = objectMapper.readValue(body, ContractRecord.class);
-
-        System.out.println("Body recebido: " + body);
-
-        System.out.println(contract.date());
-
+        ContractsList.addContract(contract);
 
         String jsonResponse = """
                 {
