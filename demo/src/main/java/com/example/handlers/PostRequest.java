@@ -15,32 +15,35 @@ import com.sun.net.httpserver.HttpExchange;
 public class PostRequest implements Handle {
 
     private final ObjectMapper objectMapper = new ObjectMapper()
-    .registerModule(new JavaTimeModule())
-    .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            .registerModule(new JavaTimeModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     @Override
     public void handleRequest(HttpExchange exchange) throws IOException {
-        
-        InputStream is = exchange.getRequestBody();
 
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        try {
+            InputStream is = exchange.getRequestBody();
 
-        WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
-        WorkersList.addWorker(worker);
+            String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        String jsonResponse = """
-                {
-                    "status": "sucesso",
-                    "mensagem": "Colaborador cadastrado com sucesso!"
-                }
-                """;
+            WorkerRecord worker = objectMapper.readValue(body, WorkerRecord.class);
+            WorkersList.addWorker(worker);
 
+            String jsonResponse = """
+                    {
+                        "status": "sucesso",
+                        "mensagem": "Colaborador cadastrado com sucesso!"
+                    }
+                    """;
 
-        byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
-        exchange.sendResponseHeaders(201, responseBytes.length);
+            byte[] responseBytes = jsonResponse.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(201, responseBytes.length);
 
-        OutputStream os = exchange.getResponseBody();
-        os.write(responseBytes);
-        os.close();
+            OutputStream os = exchange.getResponseBody();
+            os.write(responseBytes);
+            os.close();
+        } catch (Exception e) {
+            System.out.println("Erro no POST /workers " + e.getMessage());
+        }
     }
 }
